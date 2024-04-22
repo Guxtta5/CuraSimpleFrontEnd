@@ -1,15 +1,34 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { AuthContext } from '../../contexts/AuthContext'
 
 function NavBar() {
+
+    let navigate = useNavigate()
+
+    const { usuario, handleLogout } = useContext(AuthContext)
+
+    function logout() {
+        handleLogout()
+        alert('Usuário deslogado com sucesso')
+        navigate('/login')
+    }
+
+    let navbarComponent
+
+
+
     return (
         <div className='w-full bg-indigo-900 text-white flex justify-center py-4'>
             <div className='container flex justify-between text-lg'>
-                <div className='text-2x1 font-bold uppercase'>Cura Simples</div>
+                <Link to='/home' className='text-2xl font-bold uppercase'>Cura Simples</Link>
                 <div className='flex gap-4'>
-                    <div className='hover:underline'>Produtos</div>
-                    <div className='hover:underline'>Carrinho</div>
-                    <div className='hover:underline'>Entrar/Cadastrar</div>
-                    <div className='hover:underline'>Sair</div>
+
+                    <Link to='/postagens' className='hover:underline'>Produto</Link>
+                    <Link to='/temas' className='hover:underline'>Categorias</Link>
+                    <Link to='/cadastroTema' className='hover:underline'>Cadastrar Categorias</Link>
+                    <div className='hover:underline'>Perfil</div>
+                    <Link to='' onClick={logout} className='hover:underline'>Sair</Link>
                 </div>
             </div>
         </div>
